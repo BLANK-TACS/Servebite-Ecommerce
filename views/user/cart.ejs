@@ -1,0 +1,77 @@
+<div class="cart">
+    <div class="product-cart">
+        <div class="cart-header">
+            <h4>Shopping Cart</h4>
+            <div>
+                <p>You have <%= items.length%> items in your cart</p>
+            </div>
+        </div>
+        <div class="cart-products">
+            <% if(items.length == 0) {%>
+                <img class="empty" src="/images/empty.jpeg" alt="">
+            <%}%>
+            <% items.forEach(item=> {%>
+                <div class="cart-card" data-id="<%= item.prodID%>">
+                    <div>
+                        <img src="<%= item.path%>" alt="">
+                        <div>
+                            <label>
+                                <%= item.name%>
+                            </label>
+                            <label>
+                                Qty: <%= item.stock%>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="rate">
+                            <% for(let i = 1; i <= 5; i++) { %>
+                                <i data-rate="<%= i %>" class="<%= i <= item.rating ? 'rate-highlight' : '' %>">★</i>
+                        <% } %>
+                        </span>
+                    </div>
+                    <div>
+                        <button class="add">+</button>
+                        <input class="quantity" type="number" name="cart-stock" id="cart-stock" min="1" value="<%= item.quantity%>">
+                        <button class="minus">-</button>
+                    </div>
+                    <div>
+                        <span class="card-price">$
+                            <span><%= (item.price * item.quantity).toFixed(2)%></span>
+                        </span>
+                    </div>
+                    <div>
+                        <input class="delete" type="image" src="/images/delete-icon.png" alt="">
+                    </div>
+                </div>
+            <%})%>
+        </div>
+    </div>
+    <div class="order-summary">
+        <div class="order-details">
+            <h2>Order Summary</h2>
+            <div>
+                <p>Items</p>
+                <p><%= items.length%></p>
+            </div>
+            <div>
+                <p>Shipping & Delivering</p>
+                <p class="free">$12.49</p>
+            </div>
+            <div>
+                <p>Total</p>
+               
+                <p>$<span class="total"><%= (total + 12.49).toFixed(2)%></span></p>
+            </div>
+        </div>
+        <div class="payment-method">
+            <h2>Payment Method</h2>
+            <div>
+                <img src="/images/credit-card.png" alt="">
+                <p>Credit or debit card</p>
+            </div>
+
+            <button class="payment">Go to Payment</button>
+        </div>
+    </div>
+</div>

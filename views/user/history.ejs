@@ -1,0 +1,99 @@
+<div class="cart order-section">
+    <div class="product-cart order-bg">
+        <div class="cart-header order-head">
+            <h4>Order History</h4>
+            <div>
+                <p>You have <span class="order-count"><%= items.length%></span> items in your history</p>
+                <div>
+                    <p>OrderNo.</p>
+                    <select class="order-dropdown">
+                    <% if(queues.length == 0 || !queues) { %>
+                        <option value="none>">none</option>
+                    <%}%>
+                    <%if(queues.length > 0) {%>
+                    <% queues.forEach(queue => {%>
+                        <option value="<%= queue.orderNo%>"><%= queue.orderNo%></option>
+                    <%})%>
+                    <%}%>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="order-header">
+                <div>
+                    <span>Product</span>
+                </div>
+                <div>
+                    <span>Order Date</span>
+                </div>
+                <div>
+                    <span>Price</span>
+                </div>
+                <div>
+                    <span>Total</span>
+                </div>
+                <div>
+                    <span>Status</span>
+                </div>
+            </div>
+            <%if(items.length == 0) {%>
+                <img  class="empty" src="/images/empty.jpeg" alt="">
+            <%}else {%>
+            <div class="cart-products order-products">
+                <%if (items) {%>
+                <% items.forEach(item=> {%>
+                    <div class="cart-card order" data-id="<%= item.prodID%>">
+                        <div>
+                            <img src="<%= item.path%>" alt="">
+                            <div>
+                                <label>
+                                    <%= item.name%>
+                                </label>
+                                <label>
+                                    Qty: <%= item.quantity%>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <span><%= item.orderDate.toISOString().split('T')[0]%></span>
+                        </div>
+                        <div>
+                            <span class="card-price">$
+                                <span><%= item.price.toFixed(2)%></span>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="card-price">$
+                                <span><%= item.total.toFixed(2)%></span>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="status <%= item.status%>"><%= item.status%></span>
+                        </div>
+                    </div>
+    
+                <%})%>
+                <%}%>
+            </div>
+            <%}%>
+        </div>
+    </div>
+    <div class="order-summary">
+        <div class="order-details">
+            <h2>Receipt #<span class="orderNo"><%= queues?.[0]?.orderNo || "_"%></span></h2>
+            <div>
+                <p>Items</p>
+                <p class="items-count"><%= items.length%></p>
+            </div>
+            <div>
+                <p>Shipping & Delivering</p>
+                <p class="free">$12.49</p>
+            </div>
+            <div>
+                <p>Total</p>
+                <p>$<span class="total"><%= totalPrice.toFixed(2)%></span></p>
+            </div>
+        </div>
+    </div>
+</div>

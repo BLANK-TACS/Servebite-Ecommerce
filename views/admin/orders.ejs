@@ -1,0 +1,54 @@
+<div class="product-container sales-container">
+    <div>
+        <h2 class="p-title">Orders</h2>
+    </div>
+    <div>
+        <div>
+            <h2>Records</h2>
+            <select class="dropdown">
+                <option value="All">All</option>
+                <% users.forEach(user=> { %>
+                    <option value="<%= user.userID%>"><%= user.username%></option>
+               <%})%>
+            </select>
+        </div>
+        <div class="table-container sales">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order No.</th>
+                        <th>Name</th>
+                        <th>Order Date</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let item of items) {%>
+                        <tr id="items" data-id="<%= item.userID%>">
+                            <td class="order-no"><%= item.orderNo%></td>
+                            <td><%= item.username%></td>
+                            <td><%= item.orderDate.toISOString().split('T')[0]%></td>
+                            <td>$<%= item.total.toFixed(2)%></td>
+                            <td>
+                                <div>
+                                    <select class="status">
+                                        <% statuses.forEach(status => { %>
+                                            <option 
+                                                value="<%= status.status %>" 
+                                                data-id="<%= status.statusID %>"
+                                                <% if (item.status == status.status) { %> selected <% } %>
+                                            >
+                                                <%= status.status %>
+                                            </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    <%}%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

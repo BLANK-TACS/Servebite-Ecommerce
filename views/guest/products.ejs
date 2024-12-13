@@ -1,0 +1,102 @@
+<div class="sale-container">
+    <div class="category-container">
+        <div class="category-title">
+            <h2>Categories</h2>
+        </div>
+        <div class="category-section">
+            <div class="current-cat">
+                <img src="\uploads\cat-default.png" alt="">
+                <p>All</p>
+            </div>
+            <% categories.forEach(category=> {%>
+                <div>
+                    <img src="<%= category.path%>" alt="">
+                    <p><%= category.category%></p>
+                </div>
+            <%})%>
+        </div>
+    </div>
+    <div class="products">
+        <div class="products-favorite">
+            <h2>Favorite Products</h2>
+            <div>
+                <div class="warning-notif">NO FAVORITE PRODUCT</div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h2>All Products</h2>
+            </div>
+            <div class="products-section">
+                <%products.forEach(product=> {%>
+                    <div class="product-card  <%= addedToCart?.find(p => p.prodID == product.prodID) ? 'added' : '' %>"
+                        data-category="<%= product.category%>" data-id="<%= product.prodID%>">
+                        <%if(addedToCart?.find(p=> p.prodID == product.prodID)) {%>
+                            <label class="cart-labeled">Added to Cart</label>
+                        <%}%>
+                        <div>
+                            <div>
+                                <span class="rate" data-rates="<%= product.averageRating%>">                                        <span class="rate">
+                                    <% for(let i=1; i <=5; i++) { %>
+                                        <i data-rate="<%= i %>"
+                                        class="<%= i <= product.averageRating ? 'show-rating' : '' %>">★</i>
+                                    <% } %>
+                                </span>
+                            </div>
+                            <div class="details">
+                                <div>
+                                    <h4><%= product.name%></h4>
+                                    <p>Price: $<%= product.price.toFixed(2)%></p>
+                                </div>
+                                <div>
+                                    <input type="image" src="\images\add-icon.png" alt="" class="add-icon">
+                                </div>
+                            </div>
+                            <input class="rating-icon" type="image" src="\images\rating.png" alt="">
+                        </div>
+                        <img class="prod-img" src="<%= product.path%>" alt="">
+                    </div>
+                <%})%>
+            </div>
+        </div>
+    </div>
+    <div class="overly">
+        <div class="product-modal">
+            <div class="modal-header">
+                <input class="prod-img" type="image" src="/images/back.png" alt="back">
+            </div>
+            <div class="modal-details">
+                <img  class="prodImg" src="" alt="product-image">
+                <div class="prod-details">
+                    <h2 class="title">Product Details</h2>
+                    <div>
+                        <h2 class="name">prod.name</h2>
+                        <p class="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam dolorem cumque autem earum dignissimos expedita ullam consequatur magnam quam natus tempora, ipsum placeat impedit quidem eius cum, laboriosam provident ipsam.</p>
+                        <span class="rate">
+                           <i>★</i>
+                           <i>★</i>
+                           <i>★</i>
+                           <i>★</i>
+                           <i>★</i>
+                        </span>
+                        <p class="price">$</p>
+                    </div>
+                    <div class="prod-comments">
+                        <h2>Comments</h2>
+                        <div>
+                            
+                            <div class="comment-box">
+                                <h2>User1</h2>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae expedita deserunt exercitationem ullam sed necessitatibus officiis a! Eos cum culpa ipsa aliquid odio mollitia totam, maiores nostrum ad minus iure!</p>
+                            </div>  
+                        </div>
+                        <div class="box"> 
+                            <input type="text" name="comment" id="comment" class="comment" placeholder="Place a comment" required>
+                            <button class="comment-btn">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

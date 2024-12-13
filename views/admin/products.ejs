@@ -1,0 +1,126 @@
+<div class="product-container">
+    <div>
+        <h2 class="p-title">Products</h2>
+        <%- include('../partials/notif')%>
+    </div>
+    <div>
+        <div class="add-section">
+            <form action="/protected/admin/products/add-product" method="POST" enctype="multipart/form-data">
+                <h2>Add product</h2>
+                <div>
+                    <label for="img">Image</label>
+                    <br>
+                    <input type="file" name="file" id="file" accept="image/*">
+                </div>
+                <label for="name">Name</label>
+                <br>
+                <input type="text" name="name" id="name" placeholder="Product name" required>
+                <div>
+                    <div>
+                        <label for="stock">Stock</label>
+                        <input type="number" name="stock" id="stock" min="0" placeholder="Stock" required>
+                    </div>
+                    <div>
+                        <label for="category">Category</label>
+                        <select name="category" class="add-cat dropdown">
+                            <% categories.forEach(category=> { %>
+                                <option value="<%= category.category%>">
+                                    <%= category.category%>
+                                </option>
+                                <%})%>
+                        </select>
+                    </div>
+                </div>
+                <label for="price">Price</label>
+                <br>
+                <input type="number" name="price" id="price" min="0" placeholder="Price" step="0.01" required>
+                <br>
+                <label class="description" for="description">Description</label>
+                <br>
+                <textarea id="description" name="description" rows="5" cols="30"
+                    placeholder="Enter a description..." required></textarea>
+                <br>
+                <button type="submit">Create</button>
+            </form>
+            <form action="/protected/admin/products/add-category" method="POST" class="add-category"
+                enctype="multipart/form-data">
+                <h2>Add category</h2>
+                <div>
+                    <div>
+                        <label for="category">Category</label>
+                        <input type="text" name="addCategory" id="add-cat" required placeholder="New category"
+                            accept="image/*">
+                    </div>
+                    <div>
+                        <label>Icon</label>
+                        <input type="file" name="file" id="category">
+                    </div>
+                </div>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <div>
+            <div>
+                <div>
+                    <h2>Records</h2>
+                </div>
+                <div class="filter">
+                    <input type="text" name="search" id="search" placeholder="Search">
+                    <select class="dropdown">
+                        <% categories.forEach(category=> { %>
+                            <option value="<%= category.category%>">
+                                <%= category.category%>
+                            </option>
+                            <%})%>
+                    </select>
+                </div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Stock</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% for(let item of items) {%>
+                            <tr id="items">
+                                <td class="prod ID" data-label="#">
+                                    <%= item.prodID%>
+                                </td>
+                                <td class="prod-name" data-label="Name">
+                                    <div>
+                                        <img class="prod-img" src="<%= item.path[0]%>" alt="ha">
+                                        <input class="input-name" type="text" name="name-show" value="<%= item.name%>"
+                                            readonly required>
+                                    </div>
+                                </td>
+                                <td class="prod-category" data-label="Category">
+                                    <%= item.category%>
+                                </td>
+                                <td class="prod stock" data-label="Stock">
+                                    <input class="prod-stock" type="number" name="stock-show" min="0"
+                                        value="<%= item.stock%>" readonly required>
+                                </td>
+                                <td class="prod price" data-label="Price">
+                                    <span>$</span>
+                                    <input class="prod-price" type="number" name="price-show" min="0"
+                                        value="<%= item.price%>" readonly required>
+                                </td>
+                                <td class="action" data-label="Action">
+                                    <%- include('../partials/action')%>
+                                </td>
+                            </tr>
+                            <%}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

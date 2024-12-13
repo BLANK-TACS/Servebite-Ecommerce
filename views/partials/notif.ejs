@@ -1,0 +1,26 @@
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const successMessage = '<%= typeof success_msg !== "undefined" ? success_msg : "" %>';
+        const errorMessage = '<%= typeof error_msg !== "undefined" ? error_msg : "" %>';
+        console.log(successMessage)
+        if (successMessage.length > 0) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: successMessage,
+                timer: 1000,
+                showConfirmButton: false
+            });
+        }
+
+        if (errorMessage.length > 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid',
+                text: errorMessage,
+                timer: 1000,
+                showConfirmButton: false
+            });
+        }
+    });
+</script>
